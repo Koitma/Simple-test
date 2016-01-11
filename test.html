@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html>
-<head lang="ru">
-    <meta charset="UTF-8">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Test</title>
-    <style>
-        label {
-            display: block;
-        }
-    </style>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+
     <script type="text/javascript" src="js/entities.js"></script>
+    <script type="text/javascript" src="js/test.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript">
         $(function (){
@@ -17,19 +22,21 @@
                                     new  Question("Сколько будет 2*8?", [12,16,8], 1),
                                     new  Question("Сколько будет 3*2?", [5,9,6], 2)];
 
-            // we began from the first question:
+            // we begin from the first question:
             var questionNumber = 0;
 
-            // if start clicked
+            // if start is clicked
             $("#begin").click(function () {
+                $(this).html("Reset");
                 questionNumber = 0;
-                questionsArray[questionNumber].printQuestion("#questions");
+                questionsArray[questionNumber].printQuestion("#question");
+                $('#result').addClass('hidden');
             });
 
             // choosing answer
             $(document).on('click', 'label', function () {
-                var answer = $(this).find('input').val();
-                questionsArray[questionNumber].chooseAnswer(answer);
+                var answerIndex = $(this).find('input').val();
+                questionsArray[questionNumber].chooseAnswer(answerIndex);
             });
 
             // navigation
@@ -39,20 +46,48 @@
 
                 if(questionNumber === questionsArray.length) {
 
-                     var result = new Result(questionsArray);
-                     result.printResult('#questions');
+                    var result = new Result(questionsArray);
+                    $("#result").removeClass('hidden');
+                    $("#question").html("");
+                    result.printResult('#result');
                 }
                 else {
-                    questionsArray[questionNumber].printQuestion('#questions');
+                    questionsArray[questionNumber].printQuestion('#question');
                 }
+            });
+
+            $(document).on('click', '#back', function () {
+                questionNumber--;
+                questionsArray[questionNumber].printQuestion('#question');
             });
 
         });
     </script>
 </head>
 <body>
-    <button id="begin">Start</button>
-    <div id="questions"></div>
+
+<div class="container">
+    <div class="col-md-offset-3 col-md-6 main">
+        <div class="row header">
+            <h1>Test</h1>
+            <h2>Test description</h2>
+
+        </div>
+        <div class="form-group" id="question">
+            <div class="well">
+                Here some text about this test and some details...
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="well hidden" id="result">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-lg btn-default" id="begin">Begin</button>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

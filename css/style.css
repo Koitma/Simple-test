@@ -11,7 +11,7 @@ body {
 }
 
 .main .row {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     padding: 0 20px;
 }
 
@@ -54,7 +54,8 @@ body {
 
 
 .question {
-    font-size: 1.3em;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.5em;
     font-weight: bold;
     text-align: center;
 }
@@ -66,6 +67,19 @@ body {
 
 .main .btn-ex {
     width: 200px;
+}
+
+.radio label{
+    width: 100%;
+    font-family: 'Jura', sans-serif;
+    padding-left: 10%;
+    padding-top: 10px;
+    height: 35px;
+
+}
+
+.radio:hover {
+    background-color: #efefef;
 }
 
 

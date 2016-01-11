@@ -12,20 +12,25 @@ function Question (question, answers, correctAnswer) {
         // print question and answers
         // var placeToPrint = $(placeToPrint);
         //placeToPrint.html(this.question);
-        var textToPrint = this.question;
+
+
+        var textToPrint = "<div class='question'> "+ this.question +"</div>" ;
         for ( var i = 0; i< this.answers.length; i++){
-            textToPrint += "<label> <input type='radio' name = 'answers' value = '" + i +"'/>" + answers[i] + "</label>";
+            textToPrint += "<div class='radio'><label> <input type='radio' name = 'answers' value = '" + i +"'/>" + answers[i] + "</label> </div>";
             //placeToPrint.append("<label> <input type='radio' name = 'answers' value = '" + i +"'/>" + answers[i] + "</label>");
         }
-        textToPrint += "<button id='next'>Next</button>";
+        textToPrint += '<div class="row center">\
+            <button name="back" id="back" class="btn btn-lg btn-info">Back</button>\
+            <button name="next" id="next" class="btn btn-lg btn-info">Next</button>\
+        </div>';
         // placeToPrint.append("<button id='next'>Next</button>");
         $(placeToPrint).html(textToPrint);
 
     };
 
-    this.chooseAnswer = function (answer) {
+    this.chooseAnswer = function (answerIndex) {
         // remember user answer and check if it`s right
-        this.userAnswerIndex = answer;
+        this.userAnswerIndex = answerIndex;
         if (this.correctAnswerIndex == this.userAnswerIndex) {
             this.userCorrect = true;
         }
@@ -45,6 +50,6 @@ function Result (questions) {
                 this.rightAnswers++;
             }
         }
-        $(placeToPrint).html('Number of correct answers is:' + this.rightAnswers);
+        $(placeToPrint).html('Number of correct answers is: ' + this.rightAnswers);
     }
 }
