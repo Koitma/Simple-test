@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <style>
+        label {
+            display: block;
+        }
+    </style>
+    <script type="text/javascript" src="js/entities.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function (){
+            // initialisation of questions:
+            var questionsArray = [  new  Question("Сколько будет 2*2?", [4,3,5], 0),
+                                    new  Question("Сколько будет 2*8?", [12,16,8], 1),
+                                    new  Question("Сколько будет 3*2?", [5,9,6], 2)];
+
+            // we began from the first question:
+            var questionNumber = 0;
+
+            // if start clicked
+            $("#begin").click(function () {
+                questionNumber = 0;
+                questionsArray[questionNumber].printQuestion("#questions");
+            });
+
+            // choosing answer
+            $(document).on('click', 'label', function () {
+                var answer = $(this).find('input').val();
+                questionsArray[questionNumber].chooseAnswer(answer);
+            });
+
+            // navigation
+            // moving forward:
+            $(document).on('click', '#next', function (){
+                questionNumber++;
+
+                if(questionNumber === questionsArray.length) {
+
+                     var result = new Result(questionsArray);
+                     result.printResult('#questions');
+                }
+                else {
+                    questionsArray[questionNumber].printQuestion('#questions');
+                }
+
+
+            });
+
+
+
+        });
+    </script>
+</head>
+<body>
+    <button id="begin">Start</button>
+    <div id="questions"></div>
+
+</body>
+</html>
